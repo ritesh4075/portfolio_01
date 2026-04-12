@@ -1,871 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ritesh Kumar Singh – Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0b0c10;
-    --surface: #13151c;
-    --surface2: #1a1d27;
-    --accent: #7fffb2;
-    --accent2: #5be0ff;
-    --text: #f0f0ef;
-    --muted: #8a8d99;
-    --border: rgba(255,255,255,0.07);
-    --tag-bg: rgba(127,255,178,0.1);
-    --tag-color: #7fffb2;
-    --font-head: 'Syne', sans-serif;
-    --font-mono: 'DM Mono', monospace;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(11,12,16,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
-    height: 56px;
-  }
-  .nav-logo {
-    font-family: var(--font-head);
-    font-weight: 800;
-    font-size: 18px;
-    color: var(--accent);
-    letter-spacing: -0.5px;
-    text-decoration: none;
-  }
-  .nav-links {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-
-  /* HAMBURGER */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 4px;
-  }
-  .hamburger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--muted);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 88vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5rem 2.5rem 3rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -120px; right: -120px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(127,255,178,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.1s;
-  }
-  .hero-name {
-    font-family: var(--font-head);
-    font-size: clamp(2.8rem, 7vw, 5rem);
-    font-weight: 800;
-    line-height: 1.0;
-    letter-spacing: -2px;
-    color: var(--text);
-    margin-bottom: 0.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.2s;
-  }
-  .hero-name span { color: var(--accent); }
-  .hero-role {
-    font-family: var(--font-head);
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
-    font-weight: 400;
-    color: var(--muted);
-    margin-bottom: 2rem;
-    letter-spacing: -0.5px;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.3s;
-  }
-  .hero-bio {
-    max-width: 520px;
-    color: var(--muted);
-    font-size: 13.5px;
-    line-height: 1.8;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.4s;
-  }
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.5s;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: #0b0c10;
-    border-color: var(--accent);
-    font-weight: 500;
-  }
-  .btn-primary:hover { background: #5be093; }
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border-color: var(--border);
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-  .hero-stats {
-    display: flex;
-    gap: 2.5rem;
-    margin-top: 3.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards 0.6s;
-  }
-  .stat-num {
-    font-family: var(--font-head);
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--accent);
-  }
-  .stat-label {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
-
-  /* SECTIONS */
-  section {
-    padding: 5rem 2.5rem;
-    border-top: 1px solid var(--border);
-  }
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.4rem;
-  }
-  .section-title {
-    font-family: var(--font-head);
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    font-weight: 800;
-    letter-spacing: -1px;
-    color: var(--text);
-    margin-bottom: 3rem;
-  }
-
-  /* SKILLS */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .skill-group {
-    background: var(--surface);
-    padding: 1.4rem 1.6rem;
-  }
-  .skill-group-title {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 0.8rem;
-  }
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .tag {
-    background: var(--tag-bg);
-    color: var(--tag-color);
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(127,255,178,0.15);
-  }
-  .tag.blue {
-    background: rgba(91,224,255,0.1);
-    color: var(--accent2);
-    border-color: rgba(91,224,255,0.15);
-  }
-
-  /* PROJECTS */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-  }
-  .project-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.8rem;
-    transition: border-color 0.2s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .project-card:hover { border-color: rgba(127,255,178,0.3); transform: translateY(-3px); }
-  .project-card:hover::before { opacity: 1; }
-  .project-num {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    margin-bottom: 0.6rem;
-  }
-  .project-name {
-    font-family: var(--font-head);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.6rem;
-    letter-spacing: -0.3px;
-  }
-  .project-desc {
-    color: var(--muted);
-    font-size: 12.5px;
-    line-height: 1.7;
-    margin-bottom: 1.2rem;
-  }
-  .project-stack {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 1rem;
-  }
-  .project-links {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 0.8rem;
-  }
-  .project-link {
-    font-size: 11px;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(127,255,178,0.3);
-    padding-bottom: 1px;
-    transition: border-color 0.2s;
-  }
-  .project-link:hover { border-color: var(--accent); }
-
-  /* EXPERIENCE */
-  .exp-item {
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    gap: 2rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .exp-item:last-child { border-bottom: none; }
-  .exp-date {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    padding-top: 2px;
-    line-height: 1.6;
-  }
-  .exp-role {
-    font-family: var(--font-head);
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-  .exp-company {
-    color: var(--accent);
-    font-size: 12px;
-    margin-bottom: 0.8rem;
-  }
-  .exp-desc {
-    color: var(--muted);
-    font-size: 12.5px;
-    line-height: 1.7;
-    padding-left: 1rem;
-  }
-  .exp-desc li { margin-bottom: 4px; }
-
-  /* CERTIFICATIONS */
-  .certs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-  }
-  .cert-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.2rem 1.4rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    transition: border-color 0.2s;
-  }
-  .cert-card:hover { border-color: rgba(127,255,178,0.3); }
-  .cert-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
-    background: var(--tag-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-  .cert-name {
-    font-size: 12.5px;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.4;
-  }
-  .cert-org {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 3px;
-  }
-
-  /* ACHIEVEMENTS */
-  .achievement-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    padding: 1.2rem 1.6rem;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-  .achievement-card strong { color: var(--accent); }
-
-  /* CONTACT */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-  .contact-blurb {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
-  }
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--muted);
-    font-size: 12.5px;
-    text-decoration: none;
-    transition: color 0.2s;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .contact-link:hover { color: var(--accent); }
-  .contact-link-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--accent2);
-    min-width: 64px;
-    flex-shrink: 0;
-  }
-
-  /* EDUCATION */
-  .edu-list { display: flex; flex-direction: column; }
-  .edu-item {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    padding: 1.1rem 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .edu-item:last-child { border-bottom: none; }
-  .edu-degree { font-size: 13px; font-weight: 500; color: var(--text); }
-  .edu-school { font-size: 12px; color: var(--accent); }
-  .edu-meta { font-size: 11px; color: var(--muted); }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .footer-name {
-    font-family: var(--font-head);
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 14px;
-  }
-  .footer-copy { font-size: 11px; color: var(--muted); }
-
-  /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .hamburger { display: flex; }
-    .nav-links {
-      display: none;
-      position: absolute;
-      top: 56px;
-      left: 0; right: 0;
-      background: rgba(11,12,16,0.98);
-      flex-direction: column;
-      padding: 1rem 2rem 1.5rem;
-      border-bottom: 1px solid var(--border);
-      gap: 1rem;
-    }
-    .nav-links.open { display: flex; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
-    .exp-date { font-size: 10px; }
-  }
-  @media (max-width: 500px) {
-    nav { padding: 0 1.2rem; }
-    .hero, section { padding-left: 1.2rem; padding-right: 1.2rem; }
-    footer { padding: 1.5rem 1.2rem; }
-    .hero-stats { gap: 1.5rem; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ritesh Kumar Singh – Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#home">RKS</a>
-  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#certifications">Certs</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#home">RKS</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-eyebrow">Available for opportunities</div>
-  <h1 class="hero-name">Ritesh<br><span>Kumar Singh</span></h1>
-  <div class="hero-role">Software Engineer &amp; B.Tech CSE Student</div>
-  <p class="hero-bio">
-    Aspiring software engineer at Galgotias University with a passion for problem-solving and building real-world web applications. Skilled in Python, Java, and modern web technologies.
-  </p>
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="mailto:riteshsingh4075rk@gmail.com">Get in touch</a>
-    <!-- Replace # with your actual GitHub and LinkedIn URLs -->
-    <a class="btn btn-outline" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub</a>
-    <a class="btn btn-outline" href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener">LinkedIn</a>
-  </div>
-  <div class="hero-stats">
-    <div>
-      <div class="stat-num">300+</div>
-      <div class="stat-label">Problems solved</div>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-eyebrow">Available for opportunities</div>
+    <h1 class="hero-name">Ritesh<br><span>Kumar Singh</span></h1>
+    <div class="hero-role">Software Engineer &amp; B.Tech CSE Student</div>
+    <p class="hero-bio">
+      Aspiring software engineer at Galgotias University with a passion for problem-solving and building real-world web applications. Skilled in Python, Java, and modern web technologies.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:riteshsingh4075rk@gmail.com">Get in touch</a>
+      <a class="btn btn-outline" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-outline" href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener">LinkedIn</a>
     </div>
-    <div>
-      <div class="stat-num">2</div>
-      <div class="stat-label">Live projects</div>
-    </div>
-    <div>
-      <div class="stat-num">3</div>
-      <div class="stat-label">Certifications</div>
-    </div>
-    <div>
-      <div class="stat-num">7.41</div>
-      <div class="stat-label">CGPA</div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="reveal">
-    <div class="section-label">What I work with</div>
-    <div class="section-title">Technical Skills</div>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <div class="skill-group-title">Languages</div>
-        <div class="skill-tags">
-          <span class="tag">Java</span>
-          <span class="tag">Python</span>
-          <span class="tag">JavaScript</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Concepts</div>
-        <div class="skill-tags">
-          <span class="tag">OOP</span>
-          <span class="tag">DSA</span>
-          <span class="tag">REST APIs</span>
-          <span class="tag">Authentication</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Frontend</div>
-        <div class="skill-tags">
-          <span class="tag blue">HTML</span>
-          <span class="tag blue">CSS</span>
-          <span class="tag blue">Bootstrap</span>
-          <span class="tag blue">Tailwind CSS</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Backend &amp; Databases</div>
-        <div class="skill-tags">
-          <span class="tag">Flask</span>
-          <span class="tag">Spring Boot</span>
-          <span class="tag">MongoDB</span>
-          <span class="tag">MySQL</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Tools</div>
-        <div class="skill-tags">
-          <span class="tag blue">Git</span>
-          <span class="tag blue">GitHub</span>
-          <span class="tag blue">VS Code</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Soft Skills</div>
-        <div class="skill-tags">
-          <span class="tag">Teamwork</span>
-          <span class="tag">Communication</span>
-          <span class="tag">Problem Solving</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="reveal">
-    <div class="section-label">Things I've built</div>
-    <div class="section-title">Projects</div>
-  </div>
-  <div class="projects-grid">
-    <div class="project-card reveal">
-      <div class="project-num">01 &mdash; Feb 2026 – Mar 2026</div>
-      <div class="project-name">EduNexus LMS</div>
-      <p class="project-desc">
-        A role-based Learning Management System for managing academic data — attendance, marks, fees, and user authentication. Built with Flask, MySQL, and JavaScript.
-      </p>
-      <div class="project-stack">
-        <span class="tag">Flask</span>
-        <span class="tag">MySQL</span>
-        <span class="tag blue">JavaScript</span>
-        <span class="tag blue">HTML/CSS</span>
-      </div>
-      <div class="project-links">
-        <!-- Replace # with actual links -->
-        <a class="project-link" href="#" target="_blank">GitHub →</a>
-        <a class="project-link" href="#" target="_blank">Live Demo →</a>
-      </div>
-    </div>
-    <div class="project-card reveal">
-      <div class="project-num">02 &mdash; Oct 2024 – Dec 2024</div>
-      <div class="project-name">Racing Track Generator</div>
-      <p class="project-desc">
-        A 2D racing environment generator using geometric shapes and transformations. Built with Python's Tkinter, Pygame, and Matplotlib libraries.
-      </p>
-      <div class="project-stack">
-        <span class="tag">Python</span>
-        <span class="tag">Tkinter</span>
-        <span class="tag">Pygame</span>
-        <span class="tag blue">Matplotlib</span>
-      </div>
-      <div class="project-links">
-        <!-- Replace # with actual links -->
-        <a class="project-link" href="#" target="_blank">GitHub →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="reveal">
-    <div class="section-label">Where I've worked</div>
-    <div class="section-title">Experience</div>
-    <div class="exp-item">
-      <div class="exp-date">Jul 2025 –<br>Sep 2025</div>
+    <div class="hero-stats">
       <div>
-        <div class="exp-role">Java Full Stack Developer</div>
-        <div class="exp-company">EduSkills &mdash; Internship</div>
-        <ul class="exp-desc">
-          <li>Developed and maintained web applications using Java, Spring Boot, HTML, CSS, JavaScript, and MySQL.</li>
-          <li>Designed responsive front-end interfaces to improve user experience.</li>
-        </ul>
+        <div class="stat-num">300+</div>
+        <div class="stat-label">Problems solved</div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section id="certifications">
-  <div class="reveal">
-    <div class="section-label">Credentials</div>
-    <div class="section-title">Certifications</div>
-    <div class="certs-grid">
-      <div class="cert-card">
-        <div class="cert-icon">☕</div>
-        <div>
-          <div class="cert-name">Java Full Stack Developer</div>
-          <div class="cert-org">EduSkills</div>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">📊</div>
-        <div>
-          <div class="cert-name">Data Science &amp; Analytics</div>
-          <div class="cert-org">GUVI</div>
-        </div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-icon">🐍</div>
-        <div>
-          <div class="cert-name">100 Days of Python Expert</div>
-          <div class="cert-org">GUVI</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ACHIEVEMENTS -->
-<section id="achievements">
-  <div class="reveal">
-    <div class="section-label">What I've done</div>
-    <div class="section-title">Achievements</div>
-    <div class="achievement-card">
-      Solved over <strong>300+ coding problems</strong> on LeetCode and GeeksforGeeks to sharpen algorithmic proficiency and problem-solving skills.
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="reveal">
-    <div class="section-label">Let's connect</div>
-    <div class="section-title">Contact &amp; Education</div>
-    <div class="contact-grid">
       <div>
-        <p class="contact-blurb">
-          I'm actively looking for internship and full-time opportunities. Feel free to reach out — I'd love to talk about projects, ideas, or roles.
+        <div class="stat-num">2</div>
+        <div class="stat-label">Live projects</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div>
+        <div class="stat-num">7.41</div>
+        <div class="stat-label">CGPA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <div class="section-label">What I work with</div>
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">Languages</div>
+          <div class="skill-tags">
+            <span class="tag">Java</span>
+            <span class="tag">Python</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Concepts</div>
+          <div class="skill-tags">
+            <span class="tag">OOP</span>
+            <span class="tag">DSA</span>
+            <span class="tag">REST APIs</span>
+            <span class="tag">Authentication</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Frontend</div>
+          <div class="skill-tags">
+            <span class="tag blue">HTML</span>
+            <span class="tag blue">CSS</span>
+            <span class="tag blue">Bootstrap</span>
+            <span class="tag blue">Tailwind CSS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Backend &amp; Databases</div>
+          <div class="skill-tags">
+            <span class="tag">Flask</span>
+            <span class="tag">Spring Boot</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Tools</div>
+          <div class="skill-tags">
+            <span class="tag blue">Git</span>
+            <span class="tag blue">GitHub</span>
+            <span class="tag blue">VS Code</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Soft Skills</div>
+          <div class="skill-tags">
+            <span class="tag">Teamwork</span>
+            <span class="tag">Communication</span>
+            <span class="tag">Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <div class="section-label">Things I've built</div>
+      <div class="section-title">Projects</div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-num">01 &mdash; Feb 2026 – Mar 2026</div>
+        <div class="project-name">EduNexus LMS</div>
+        <p class="project-desc">
+          A role-based Learning Management System for managing academic data — attendance, marks, fees, and user authentication. Built with Flask, MySQL, and JavaScript.
         </p>
-        <div class="contact-links">
-          <a class="contact-link" href="mailto:riteshsingh4075rk@gmail.com">
-            <span class="contact-link-label">Email</span>
-            riteshsingh4075rk@gmail.com
-          </a>
-          <a class="contact-link" href="tel:9939730253">
-            <span class="contact-link-label">Phone</span>
-            +91 9939730253
-          </a>
-          <!-- Replace YOUR_USERNAME with your actual handles -->
-          <a class="contact-link" href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener">
-            <span class="contact-link-label">LinkedIn</span>
-            linkedin.com/in/YOUR_USERNAME
-          </a>
-          <a class="contact-link" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">
-            <span class="contact-link-label">GitHub</span>
-            github.com/YOUR_USERNAME
-          </a>
-          <div class="contact-link">
-            <span class="contact-link-label">Location</span>
-            Greater Noida, Uttar Pradesh
-          </div>
+        <div class="project-stack">
+          <span class="tag">Flask</span>
+          <span class="tag">MySQL</span>
+          <span class="tag blue">JavaScript</span>
+          <span class="tag blue">HTML/CSS</span>
+        </div>
+        <div class="project-links">
+          <a class="project-link" href="#" target="_blank">GitHub →</a>
+          <a class="project-link" href="#" target="_blank">Live Demo →</a>
         </div>
       </div>
+      <div class="project-card reveal">
+        <div class="project-num">02 &mdash; Oct 2024 – Dec 2024</div>
+        <div class="project-name">Racing Track Generator</div>
+        <p class="project-desc">
+          A 2D racing environment generator using geometric shapes and transformations. Built with Python's Tkinter, Pygame, and Matplotlib libraries.
+        </p>
+        <div class="project-stack">
+          <span class="tag">Python</span>
+          <span class="tag">Tkinter</span>
+          <span class="tag">Pygame</span>
+          <span class="tag blue">Matplotlib</span>
+        </div>
+        <div class="project-links">
+          <a class="project-link" href="#" target="_blank">GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div>
-        <div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent2);margin-bottom:1rem;">Education</div>
-        <div class="edu-list">
-          <div class="edu-item">
-            <div class="edu-degree">B.Tech – Computer Science Engineering</div>
-            <div class="edu-school">Galgotias University</div>
-            <div class="edu-meta">Oct 2023 – Jun 2027 &nbsp;|&nbsp; CGPA: 7.41 / 10</div>
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="reveal">
+      <div class="section-label">Where I've worked</div>
+      <div class="section-title">Experience</div>
+      <div class="exp-item">
+        <div class="exp-date">Jul 2025 –<br>Sep 2025</div>
+        <div>
+          <div class="exp-role">Java Full Stack Developer</div>
+          <div class="exp-company">EduSkills &mdash; Internship</div>
+          <ul class="exp-desc">
+            <li>Developed and maintained web applications using Java, Spring Boot, HTML, CSS, JavaScript, and MySQL.</li>
+            <li>Designed responsive front-end interfaces to improve user experience.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="reveal">
+      <div class="section-label">Credentials</div>
+      <div class="section-title">Certifications</div>
+      <div class="certs-grid">
+        <div class="cert-card">
+          <div class="cert-icon">☕</div>
+          <div>
+            <div class="cert-name">Java Full Stack Developer</div>
+            <div class="cert-org">EduSkills</div>
           </div>
-          <div class="edu-item">
-            <div class="edu-degree">Class XII</div>
-            <div class="edu-school">BBN College, Gopalganj</div>
-            <div class="edu-meta">March 2022 &nbsp;|&nbsp; 70%</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">📊</div>
+          <div>
+            <div class="cert-name">Data Science &amp; Analytics</div>
+            <div class="cert-org">GUVI</div>
           </div>
-          <div class="edu-item">
-            <div class="edu-degree">Class X</div>
-            <div class="edu-school">High School, Nautan</div>
-            <div class="edu-meta">April 2020 &nbsp;|&nbsp; 64.6%</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🐍</div>
+          <div>
+            <div class="cert-name">100 Days of Python Expert</div>
+            <div class="cert-org">GUVI</div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Ritesh Kumar Singh</div>
-  <div class="footer-copy">B.Tech CSE &middot; Galgotias University &middot; Greater Noida</div>
-</footer>
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="reveal">
+      <div class="section-label">What I've done</div>
+      <div class="section-title">Achievements</div>
+      <div class="achievement-card">
+        Solved over <strong>300+ coding problems</strong> on LeetCode and GeeksforGeeks to sharpen algorithmic proficiency and problem-solving skills.
+      </div>
+    </div>
+  </section>
 
-<script>
-  // Mobile nav toggle
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('nav-links');
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <div class="section-label">Let's connect</div>
+      <div class="section-title">Contact &amp; Education</div>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-blurb">
+            I'm actively looking for internship and full-time opportunities. Feel free to reach out — I'd love to talk about projects, ideas, or roles.
+          </p>
+          <div class="contact-links">
+            <a class="contact-link" href="mailto:riteshsingh4075rk@gmail.com">
+              <span class="contact-link-label">Email</span>
+              riteshsingh4075rk@gmail.com
+            </a>
+            <a class="contact-link" href="tel:9939730253">
+              <span class="contact-link-label">Phone</span>
+              +91 9939730253
+            </a>
+            <a class="contact-link" href="https://linkedin.com/in/YOUR_USERNAME" target="_blank" rel="noopener">
+              <span class="contact-link-label">LinkedIn</span>
+              linkedin.com/in/YOUR_USERNAME
+            </a>
+            <a class="contact-link" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noopener">
+              <span class="contact-link-label">GitHub</span>
+              github.com/YOUR_USERNAME
+            </a>
+            <div class="contact-link">
+              <span class="contact-link-label">Location</span>
+              Greater Noida, Uttar Pradesh
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="edu-section-label">Education</div>
+          <div class="edu-list">
+            <div class="edu-item">
+              <div class="edu-degree">B.Tech – Computer Science Engineering</div>
+              <div class="edu-school">Galgotias University</div>
+              <div class="edu-meta">Oct 2023 – Jun 2027 &nbsp;|&nbsp; CGPA: 7.41 / 10</div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-degree">Class XII</div>
+              <div class="edu-school">BBN College, Gopalganj</div>
+              <div class="edu-meta">March 2022 &nbsp;|&nbsp; 70%</div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-degree">Class X</div>
+              <div class="edu-school">High School, Nautan</div>
+              <div class="edu-meta">April 2020 &nbsp;|&nbsp; 64.6%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Ritesh Kumar Singh</div>
+    <div class="footer-copy">B.Tech CSE &middot; Galgotias University &middot; Greater Noida</div>
+  </footer>
 
-  // Close nav when a link is clicked
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  reveals.forEach(el => observer.observe(el));
-
-  // Active nav link highlight on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navAnchors = document.querySelectorAll('.nav-links a');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 80) current = sec.getAttribute('id');
-    });
-    navAnchors.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current
-        ? 'var(--accent)'
-        : 'var(--muted)';
-    });
-  });
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
